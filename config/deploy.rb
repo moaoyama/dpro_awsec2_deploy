@@ -5,9 +5,10 @@ set :application, "cdp_web_web_aws_deploy_task"
 set :repo_url, "https://github.com/moaoyama/dpro_awsec2_deploy.git"
 set :bundle_without, %w{test}.join(':')
 set :branch, 'main'
+set :bundle_jobs, 1
 
 set :rbenv_version, '3.3.0'
-append :linked_files, 'config/database.yml', 'config/secrets.yml'
+append :linked_files, 'config/database.yml', 'config/secrets.yml', 'config/unicorn/production.rb'
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
