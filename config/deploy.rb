@@ -8,6 +8,7 @@ set :branch, 'main'
 set :bundle_jobs, 1
 
 set :rbenv_version, '3.3.0'
+set :linked_files, %w{config/secrets.yml .env}
 append :linked_files, 'config/database.yml', 'config/secrets.yml', 'config/unicorn/production.rb'
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
