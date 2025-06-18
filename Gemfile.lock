@@ -385,7 +385,7 @@ PLATFORMS
 
 DEPENDENCIES
   aws-sdk-s3
-  bootsnap
+  bootsnap (= 1.18.6)
   byebug
   capistrano (~> 3.10)
   capistrano-rails (~> 1.6)
