@@ -49,7 +49,7 @@
 #
 # The server-based syntax can be used to override options:
 # ------------------------------------
- server "13.208.45.189",
+ server "15.152.32.164",
    user: "ec2-user",
    roles: %w{web app},
    ssh_options: {
@@ -59,3 +59,14 @@
      auth_methods: %w(publickey password)
      # password: "please use keys"
    }
+
+namespace :unicorn do
+  desc 'Restart Unicorn'
+  task :restart do
+    on roles(:app) do
+      execute "sudo systemctl restart unicorn"
+    end
+  end
+end
+
+after 'deploy:publishing', 'unicorn:restart'

@@ -8,8 +8,32 @@ set :branch, 'main'
 set :bundle_jobs, 1
 
 set :rbenv_version, '3.3.0'
-set :linked_files, %w{config/secrets.yml .env}
-append :linked_files, 'config/database.yml', 'config/secrets.yml', 'config/unicorn/production.rb'
+set :linked_files, fetch(:linked_files, []).push(
+  'config/master.key',
+  'config/database.yml',
+  'config/secrets.yml',
+  'config/unicorn/production.rb'
+)
+append :linked_dirs, 'log', 'tmp/pids', 'tmp/sockets', 'public/assets'
+
+set :default_env, {
+  'RAILS_MASTER_KEY' => ENV['RAILS_MASTER_KEY'] || '3d7196adcf6d50a7fdbc696a6e037020'
+}
+
+before 'deploy:assets:precompile', 'yarn:install'
+
+namespace :deploy do
+  desc 'Run yarn install'
+  task :yarn_install do
+    on roles(:app) do
+      within release_path do
+        execute :yarn, 'install --silent --no-progress'
+      end
+    end
+  end
+
+  after 'deploy:updated', 'deploy:yarn_install'
+end
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 

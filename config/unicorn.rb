@@ -1,17 +1,19 @@
-app_path = "/var/www/cdp_web_web_aws_deploy_task/current"
+app_path = "/var/www/cdp_web_web_aws_deploy_task"
+shared_path = "#{app_path}/shared"
+current_path = "#{app_path}/current"
 
 worker_processes 2
-working_directory app_path
+working_directory "#{current_path}"
 
 # ソケット通信
-listen "#{app_path}/tmp/sockets/unicorn.sock", backlog: 64
+listen "#{shared_path}/tmp/sockets/unicorn.sock", backlog: 64
 
 # PID 管理ファイル
-pid "#{app_path}/tmp/pids/unicorn.pid"
+pid "#{shared_path}/tmp/pids/unicorn.pid"
 
 # ログ出力
-stderr_path "#{app_path}/log/unicorn.stderr.log"
-stdout_path "#{app_path}/log/unicorn.stdout.log"
+stderr_path "#{shared_path}/log/unicorn.stderr.log"
+stdout_path "#{shared_path}/log/unicorn.stdout.log"
 
 # アプリの preload（メモリ効率を上げる）
 preload_app true
