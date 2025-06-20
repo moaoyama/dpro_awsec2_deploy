@@ -51,7 +51,7 @@
 # ------------------------------------
  server "15.152.32.164",
    user: "ec2-user",
-   roles: %w{web app},
+   roles: %w{web db app},
    ssh_options: {
      user: "ec2-user", # overrides user setting above
      keys: %w(/home/moaoy/.ssh/dic_sample_01.pem),

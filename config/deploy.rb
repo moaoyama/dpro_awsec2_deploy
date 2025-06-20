@@ -19,6 +19,7 @@ append :linked_dirs, 'log', 'tmp/pids', 'tmp/sockets', 'public/assets'
 set :default_env, {
   'RAILS_MASTER_KEY' => ENV['RAILS_MASTER_KEY'] || '3d7196adcf6d50a7fdbc696a6e037020'
 }
+set :unicorn_pid, "/var/www/cdp_web_web_aws_deploy_task/shared/tmp/pids/unicorn.pid"
 
 before 'deploy:assets:precompile', 'yarn:install'
 
